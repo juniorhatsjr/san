@@ -1,1 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>San Valentín 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff8fcf, #ffb6e1);
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.25);
+      padding: 40px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 90%;
+      width: 420px;
+      z-index: 2;
+    }
+
+    h1 {
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    button {
+      border: none;
+      padding: 15px 25px;
+      font-size: 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yesBtn {
+      background: #ff2f92;
+      color: white;
+    }
+
+    #noBtn {
+      background: white;
+      color: #ff2f92;
+    }
+
+    .final {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      color: white;
+    }
+
+    .final img {
+      width: 250px;
+      margin-top: 20px;
+      border-radius: 20px;
+    }
+
+    .heart {
+      position: absolute;
+      top: -10px;
+      font-size: 24px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container" id="main">
+    <h1>¿Quieres ser mi San Valentín? 💖</h1>
+    <div class="buttons">
+      <button id="yesBtn">Sí 💖</button>
+      <button id="noBtn">No 😳</button>
+    </div>
+  </div>
+
+  <div class="container final" id="final">
+    <h1>💘 Sabía que dirías que sí niña 💘</h1>
+    <h2>Te amo 💖</h2>
+    <img src="chango.png" alt="Chango con flores">
+  </div>
+
+  <!-- AUDIO -->
+  <audio id="music">
+    <source src="audio.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const main = document.getElementById("main");
+    const final = document.getElementById("final");
+    const music = document.getElementById("music");
+
+    const textos = [
+      "¿Segura que no? 😊",
+      "Me harías muy feliz 💕",
+      "Prometo cuidarte 💖",
+      "Sería especial contigo ✨",
+      "Di que sí 💘",
+      "Ya sabes que quieres 😍",
+      "Es un sí 💖"
+    ];
+
+    let index = 0;
+    let scale = 1;
+
+    noBtn.addEventListener("click", () => {
+      scale += 0.15;
+      yesBtn.style.transform = `scale(${scale})`;
+
+      if (index < textos.length) {
+        yesBtn.textContent = textos[index];
+        index++;
+      }
+    });
+
+    yesBtn.addEventListener("click", () => {
+      main.style.display = "none";
+      final.style.display = "flex";
+      music.play();
+    });
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+
+</body>
+</html>
